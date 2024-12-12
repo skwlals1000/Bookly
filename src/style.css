@@ -1,0 +1,209 @@
+/* 공통 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-menu a {
+  margin: 0 15px;
+  font-size: 1rem;
+}
+
+.navbar-menu a:hover {
+  text-decoration: underline;
+}
+
+/* 메인 페이지 스타일 */
+.main-page {
+  padding: 20px;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.book-item {
+  text-align: center;
+  max-width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.book-image {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.book-info {
+  text-align: left;
+}
+
+.book-rank {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.book-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.book-author {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+/* Record 페이지 스타일 */
+.record-page {
+  padding: 20px;
+  text-align: center;
+}
+
+.record-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.record-table th,
+.record-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.record-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.record-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.record-table tr:hover {
+  background-color: #eaeaea;
+}
+
+/* Discuss 페이지 스타일 */
+.discuss-page {
+  padding: 20px;
+  text-align: center;
+}
+
+.discuss-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.discuss-table th,
+.discuss-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.discuss-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.discuss-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.discuss-table tr:hover {
+  background-color: #eaeaea;
+}
+
+/* MyPage 스타일 */
+.mypage {
+  padding: 20px;
+}
+
+.profile {
+  margin-bottom: 30px;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
+  margin-right: 20px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+.mypage-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.mypage-table th,
+.mypage-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.mypage-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.mypage-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.mypage-table tr:hover {
+  background-color: #eaeaea;
+}
