@@ -5,22 +5,53 @@ import { Link } from "react-router-dom";
 // 스타일 정의
 const Navbar = styled.nav`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 20px;
   background-color: #f5f5f5;
   border-bottom: 1px solid #ddd;
 
   .search-bar {
     display: flex;
-    gap: 10px;
-  }
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border: 2px solid #c8102e;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
-  .search-input {
-    padding: 5px 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    .search-body {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+
+      input {
+        flex: 1;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #c8102e;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #a30e22;
+        }
+      }
+    }
   }
 `;
 
@@ -32,36 +63,41 @@ const Categories = styled.div`
   button {
     margin: 0 10px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: white;
-    background-color: #007bff;
+    color: #a8a8a8;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
+    border-bottom: 2px solid transparent;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: color 0.3s, border-bottom 0.3s;
 
     &:hover {
-      background-color: #0056b3;
+      color: #000;
     }
 
     &.active {
-      background-color: #0056b3;
+      color: #000;
+      border-bottom: 2px solid #c8102e;
     }
   }
 `;
 
 const SliderContainer = styled.div`
   position: relative;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  white-space: nowrap; /* Prevent items from wrapping */
-  margin: 20px 0;
-  padding: 20px 0;
+  overflow: hidden;
+  margin: 20px auto;
+  width: 90%;
+
+  .slider-content {
+    display: flex;
+    transition: all 0.5s ease-in-out;
+    scroll-behavior: smooth;
+    gap: 20px;
+  }
 
   .slider-card {
-    display: inline-block; /* Allow horizontal alignment */
-    width: 250px;
-    margin: 0 10px;
+    flex: 0 0 250px;
     border-radius: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
@@ -101,45 +137,72 @@ const SliderContainer = styled.div`
       color: gray;
     }
   }
+
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
 `;
 
 const MainPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("신작자료");
+  const sliderRef = useRef(null);
 
   const bookData = [
     { category: "신작자료", rank: "신작 1위", title: "AI 시대의 인간다움", author: "김영하", image: "https://image.yes24.com/goods/133213071/XL" },
     { category: "신작자료", rank: "신작 2위", title: "인공지능과 윤리", author: "최윤식", image: "https://image.yes24.com/goods/130174102/XL" },
-    { category: "신작자료", rank: "신작 3위", title: "디지털 시대의 소통법", author: "김진영", image: "https://image.yes24.com/goods/129471071/XL" },
     { category: "인기도서", rank: "인기 1위", title: "트렌드 코리아 2025", author: "김난도 외", image: "https://image.yes24.com/goods/133213071/XL" },
-    { category: "인기도서", rank: "인기 2위", title: "죽고 싶지만 떡볶이는 먹고 싶어", author: "백세희", image: "https://image.yes24.com/goods/129471071/XL" },
-    { category: "인기도서", rank: "인기 3위", title: "소크라테스 익스프레스", author: "에릭 와이너", image: "https://image.yes24.com/goods/130174102/XL" },
     { category: "추천도서", rank: "추천 1위", title: "빛이 이끄는 곳으로", author: "백희성", image: "https://image.yes24.com/goods/130174102/XL" },
-    { category: "추천도서", rank: "추천 2위", title: "언젠가 우리가 같은 별을 바라본다면", author: "차인표", image: "https://image.yes24.com/goods/104663596/XL" },
-    { category: "추천도서", rank: "추천 3위", title: "습관의 힘", author: "찰스 두히그", image: "https://image.yes24.com/goods/104663596/XL" },
   ];
 
-  // 검색어에 따른 필터링
   const filteredBooks = bookData.filter(
     (book) =>
       book.category === selectedCategory &&
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const scroll = (direction) => {
+    const slider = sliderRef.current;
+    const scrollAmount = 300;
+    slider.scrollLeft += direction === "left" ? -scrollAmount : scrollAmount;
+  };
+
   const categories = ["신작자료", "인기도서", "추천도서"];
 
   return (
     <>
       <Navbar>
-        <h1>도서 목록</h1>
         <div className="search-bar">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="책 제목 검색"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="search-body">
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button>검색</button>
+          </div>
         </div>
       </Navbar>
       <Categories>
@@ -154,8 +217,11 @@ const MainPage = () => {
         ))}
       </Categories>
       <SliderContainer>
-        {filteredBooks.length > 0 ? (
-          filteredBooks.map((book, index) => (
+        <button className="slider-button prev" onClick={() => scroll("left")}>
+          {"<"}
+        </button>
+        <div className="slider-content" ref={sliderRef}>
+          {filteredBooks.map((book, index) => (
             <div key={index} className="slider-card">
               <Link to={`/book/${book.title}`}>
                 <img src={book.image} alt={book.title} className="book-image" />
@@ -166,10 +232,11 @@ const MainPage = () => {
                 <p className="book-author">{book.author}</p>
               </div>
             </div>
-          ))
-        ) : (
-          <p>검색 결과가 없습니다.</p>
-        )}
+          ))}
+        </div>
+        <button className="slider-button next" onClick={() => scroll("right")}>
+          {">"}
+        </button>
       </SliderContainer>
     </>
   );
