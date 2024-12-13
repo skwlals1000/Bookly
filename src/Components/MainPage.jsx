@@ -172,10 +172,18 @@ const MainPage = () => {
   const bookData = [
     { category: "신작자료", rank: "신작 1위", title: "AI 시대의 인간다움", author: "김영하", image: "https://image.yes24.com/goods/133213071/XL" },
     { category: "신작자료", rank: "신작 2위", title: "인공지능과 윤리", author: "최윤식", image: "https://image.yes24.com/goods/130174102/XL" },
+    { category: "신작자료", rank: "신작 3위", title: "디지털 신세계", author: "홍길동", image: "https://image.yes24.com/goods/129850102/XL" },
+    { category: "신작자료", rank: "신작 4위", title: "알고리즘의 이해", author: "이수정", image: "https://image.yes24.com/goods/126780150/XL" },
     { category: "인기도서", rank: "인기 1위", title: "트렌드 코리아 2025", author: "김난도 외", image: "https://image.yes24.com/goods/133213071/XL" },
+    { category: "인기도서", rank: "인기 2위", title: "심리학 이야기", author: "박지영", image: "https://image.yes24.com/goods/124563212/XL" },
+    { category: "인기도서", rank: "인기 3위", title: "행동 경제학의 기초", author: "정혜린", image: "https://image.yes24.com/goods/123450902/XL" },
+    { category: "인기도서", rank: "인기 4위", title: "우리가 바라본 세상", author: "최지은", image: "https://image.yes24.com/goods/128903712/XL" },
     { category: "추천도서", rank: "추천 1위", title: "빛이 이끄는 곳으로", author: "백희성", image: "https://image.yes24.com/goods/130174102/XL" },
+    { category: "추천도서", rank: "추천 2위", title: "성공의 비결", author: "이영호", image: "https://image.yes24.com/goods/125673082/XL" },
+    { category: "추천도서", rank: "추천 3위", title: "미래의 가능성", author: "장현우", image: "https://image.yes24.com/goods/126789401/XL" },
+    { category: "추천도서", rank: "추천 4위", title: "변화의 시작", author: "한수진", image: "https://image.yes24.com/goods/127890213/XL" },
   ];
-
+  
   const filteredBooks = bookData.filter(
     (book) =>
       book.category === selectedCategory &&
